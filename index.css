@@ -1,3 +1,97 @@
 body {
-    margin: 0;
+    margin: auto;
+    width: 600px;
+    font-family: "Smythe", system-ui;
 } 
+
+header {
+    padding: 46px;
+    color: #FFFFFF;
+    background-image: url('./images/burger-background.jpg');
+    background-size: cover;
+    background-position: 100% 65%;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 39px;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+header p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 23px;
+}
+
+.inter-font {
+    font-family: "Inter", sans-serif;
+}
+
+.cards {
+    margin: 0 46px;
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding-top: 45px;
+    padding-bottom: 45px;
+    width: 100%;
+    border-bottom: 1px solid #D2D2D2;
+}
+
+.card-container {
+    display: flex;
+    width: 100%;
+}
+
+.emoji {
+    font-size: 79px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 20px;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 8px;
+}
+
+.item-name {
+    font-size: 28px;
+    margin: 0;
+}
+
+.item-ingredients {
+    font-size: 16px;
+    margin: 0;
+    color: #8B8B8B;
+}
+
+.item-price {
+    font-size: 20px;
+    margin: 0;
+}
+
+.add-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 46px;
+    margin-top: 10px;
+    line-height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid #DEDEDE;
+    font-size: 32px;
+    font-weight: 200;
+    color: #3C3C3C;
+    background: none;
+    box-sizing: content-box;
+}
