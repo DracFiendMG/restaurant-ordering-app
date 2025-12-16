@@ -7,20 +7,23 @@ export const menuArray = [
         ingredients: ["pepperoni", "mushrom", "mozarella"],
         id: uuidv4(),
         price: 14,
-        emoji: "🍕"
+        emoji: "🍕",
+        orderCount: 0
     },
     {
         name: "Hamburger",
         ingredients: ["beef", "cheese", "lettuce"],
         price: 12,
         emoji: "🍔",
-        id: uuidv4()
+        id: uuidv4(),
+        orderCount: 0
     },
         {
         name: "Beer",
-        ingredients: ["grain, hops, yeast, water"],
+        ingredients: ["grain", "hops", "yeast", "water"],
         price: 12,
         emoji: "🍺",
-        id: uuidv4()
+        id: uuidv4(),
+        orderCount: 0
     }
 ]
