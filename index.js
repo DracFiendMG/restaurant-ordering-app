@@ -5,38 +5,57 @@ const orders = []
 document.addEventListener("click", function(e) {
     if (e.target.dataset.id) {
         addItemToYourOrder(e.target.dataset.id)
+    } else if (e.target.dataset.removeId) {
+        deleteItemFromYourOrder(e.target.dataset.removeId)
     }
 })
 
 function addItemToYourOrder(itemId) {
     const orderObj = menuArray.filter((item) => item.id == itemId)[0]
-    orderObj.orderCount++
+    orderObj.itemSelected = true
+
+    renderOrder()
+}
+
+function deleteItemFromYourOrder(itemId) {
+    const orderObj = menuArray.filter((item) => item.id == itemId)[0]
+    orderObj.itemSelected = false
 
     renderOrder()
 }
 
 function renderOrder() {
-    const ordersList = menuArray.filter((item) => item.orderCount > 0)
-    const orderedItems = ordersList.map((item) => `
-        <div class="ordered-item">
-            <div class="item">
-                <p class="item-name order-item-name">${item.name}</p>
-                <button class="remove-btn">remove</button>
+    const ordersList = menuArray.filter((item) => item.itemSelected)
+
+    let ordersHTML = ''
+
+    if (ordersList.length > 0) {
+        const orderedItems = ordersList.map((item) => `
+            <div class="ordered-item">
+                <div class="item">
+                    <p class="item-name order-item-name">${item.name}</p>
+                    <button class="remove-btn" data-remove-id="${item.id}">remove</button>
+                </div>
+                <p class="item-price order-item-price">$${item.price}</p>
             </div>
-            <p class="item-price order-item-price">$${item.price}</p>
-        </div>
-    `).join('')
-    document.querySelector(".order").innerHTML = `
-        <h2>Your order</h2>
-        <div class="ordered-items">
-            ${orderedItems}
-        </div>
-        <div class="total-price">
-            <p class="item-name order-item-name">Total price:</p>
-            <p class="item-price order-item-price">$14</p>
-        </div>
-        <button class="complete-order-btn">Complete Order</button>
-    `
+        `).join('')
+
+        ordersHTML = `
+            <h2>Your order</h2>
+            <div class="ordered-items">
+                ${orderedItems}
+            </div>
+            <div class="total-price">
+                <p class="item-name order-item-name">Total price:</p>
+                <p class="item-price order-item-price">$${ordersList.reduce((total, item) => {
+                    return total + item.price
+                }, 0)}</p>
+            </div>
+            <button class="complete-order-btn">Complete Order</button>
+        `
+    }
+    
+    document.querySelector(".order").innerHTML = ordersHTML
 }
 
 function renderMenu() {
