@@ -1,13 +1,30 @@
 import { menuArray } from "./data.js";
 
-const orders = []
+const discount = 0.1;
+
+const paymentSection = document.querySelector(".payment")
+const paymentForm = document.querySelector("#payment-form")
 
 document.addEventListener("click", function(e) {
     if (e.target.dataset.id) {
         addItemToYourOrder(e.target.dataset.id)
     } else if (e.target.dataset.removeId) {
         deleteItemFromYourOrder(e.target.dataset.removeId)
+    } else if (e.target.id === "complete-order-btn") {
+        paymentSection.classList.toggle("hidden")
     }
+})
+
+paymentForm.addEventListener('submit', function(e) {
+    e.preventDefault()
+    paymentSection.classList.toggle("hidden")
+
+    const paymentFormData = new FormData(paymentForm)
+
+    paymentForm.reset()
+    resetOrder()
+
+    renderSuccess(paymentFormData.get("name"))
 })
 
 function addItemToYourOrder(itemId) {
@@ -22,6 +39,31 @@ function deleteItemFromYourOrder(itemId) {
     orderObj.itemSelected = false
 
     renderOrder()
+}
+
+function resetOrder() {
+    menuArray.forEach((item) => item.itemSelected = false)
+
+    renderOrder()
+}
+
+function renderSuccess(name) {
+    document.querySelector(".success-section").innerHTML = `
+        <p class="success hidden">Thanks, ${name}! Your order is on its way!</p>
+    `
+    document.querySelector(".success").classList.remove("hidden")
+}
+
+function totalBill(ordersList) {
+    let amount = ordersList.reduce((total, item) => {
+        return total + item.price
+    }, 0)
+
+    if (ordersList.length >= 2) {
+        return `${amount - (amount * discount)} (With <span class="discount-text">10% Meal-Deal Discount</span>)`
+    }
+
+    return amount
 }
 
 function renderOrder() {
@@ -47,11 +89,11 @@ function renderOrder() {
             </div>
             <div class="total-price">
                 <p class="item-name order-item-name">Total price:</p>
-                <p class="item-price order-item-price">$${ordersList.reduce((total, item) => {
-                    return total + item.price
-                }, 0)}</p>
+                <p class="item-price order-item-price">$
+                    ${totalBill(ordersList)}
+                </p>
             </div>
-            <button class="complete-order-btn">Complete Order</button>
+            <button class="complete-order-btn" id="complete-order-btn">Complete Order</button>
         `
     }
     
@@ -59,7 +101,7 @@ function renderOrder() {
 }
 
 function renderMenu() {
-    document.querySelector(".cards").innerHTML = menuArray.map((item) => {
+    document.querySelector(".cards").innerHTML += menuArray.map((item) => {
         return `
             <div class="card">
                 <div class="card-container">

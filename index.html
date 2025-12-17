@@ -16,19 +16,27 @@
         </header>
         <main>
             <section class="cards">
-                
+                <p class="discount-msg">Buy any two items and get a discount of 10%!</p>
             </section>
             <section class="order">
                 
             </section>
-            <section class="payment">
-                <h2>Enter card details</h2>
-                <div class="card-details common-margin">
-                    <input type="text" placeholder="Enter your name">
-                    <input type="number" placeholder="Enter your number">
-                    <input type="number" placeholder="Enter your CVV">
-                </div>
-                <button class="complete-order-btn common-margin">Pay</button>
+            <section>
+                <form id="payment-form" class="payment hidden">
+                    <h2>Enter card details</h2>
+                    <div class="card-details common-margin">
+                        <input name="name" type="text" placeholder="Enter your name" required>
+                        <input name="number" type="number" placeholder="Enter your number" required>
+                        <input name="cvv" type="number" placeholder="Enter your CVV" required>
+                    </div>
+                    <button type="submit" class="complete-order-btn common-margin" id="payment-btn">Pay</button>
+                </form>
+            </section>
+            <section class="success-section">
+                
+            </section>
+            <section class="feedback">
+                
             </section>
         </main>
 	    <script src="index.js" type="module"></script>

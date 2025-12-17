@@ -3,6 +3,7 @@ body {
     padding: 0;
     width: 600px;
     font-family: "Smythe", system-ui;
+    color: #ffffff;
 } 
 
 header {
@@ -11,7 +12,6 @@ header {
     background-image: url('./images/burger-background.jpg');
     background-size: cover;
     background-position: 100% 65%;
-    margin-bottom: 20px;
 }
 
 header h1 {
@@ -29,7 +29,9 @@ header p {
 
 main {
     position: relative;
-    margin-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    background: #000000;
 }
 
 .cards, .order {
@@ -42,6 +44,11 @@ main {
 
 .inter-font {
     font-family: "Inter", sans-serif;
+}
+
+.discount-msg {
+    text-align: center;
+    font-size: 32px;
 }
 
 .card {
@@ -102,7 +109,7 @@ main {
     border: 1.5px solid #DEDEDE;
     font-size: 32px;
     font-weight: 200;
-    color: #3C3C3C;
+    color: #DEDEDE;
     background: none;
     box-sizing: content-box;
 }
@@ -131,6 +138,10 @@ main {
     align-items: center;
     margin-top: 10px;
     margin-bottom: 50px;
+}
+
+.discount-text {
+    color: #16DB99;
 }
 
 .ordered-item {
@@ -187,10 +198,13 @@ main {
     height: 542px;
     text-align: center;
     background: #FFFFFF;
-    /* visibility: hidden; */
-    border: 1px solid #757575;
     border-radius: 4px;
-    box-shadow: 5px 5px 255px #00000080;
+    box-shadow: 5px 5px 255px #ffffff80;
+    background-color: #000000;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .payment h2 {
@@ -202,10 +216,24 @@ main {
 .payment input {
     width: 100%;
     color: #757575;
-    border: 1.3px solid #757575;
+    background-color: inherit;
+    border: 2px solid #757575;
+    border-radius: 4px;
     font-size: 20px;
     font-weight: 400;
     padding: 20px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .card-details {
@@ -217,4 +245,15 @@ main {
 .common-margin {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.success {
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+    color: #065F46;
+    background: #ECFDF5;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: 0 46px;
 }
