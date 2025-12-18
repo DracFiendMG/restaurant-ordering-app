@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Smythe&display=swap" rel="stylesheet">
@@ -32,11 +33,23 @@
                     <button type="submit" class="complete-order-btn common-margin" id="payment-btn">Pay</button>
                 </form>
             </section>
-            <section class="success-section">
+            <section class="success-section hidden">
                 
             </section>
-            <section class="feedback">
-                
+            <section class="feedback hidden">
+                <h2>Rate Your Experience</h2>
+                <div class="stars"></div>
+                <button type="submit" class="complete-order-btn common-margin" id="feedback-btn">Submit</button>
+            </section>
+            <section class="thanks hidden">
+                <h2>Thank you for your feedback!</h2>
+            </section>
+            <section class="project-details">
+                <div class="github">
+                    <a target="_blank" href="https://github.com/DracFiendMG/basketball-scoreboard">
+                        GitHub<i class="fab fa-github"></i>
+                    </a>
+                </div>
             </section>
         </main>
 	    <script src="index.js" type="module"></script>

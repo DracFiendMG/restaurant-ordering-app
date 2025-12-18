@@ -4,14 +4,26 @@ const discount = 0.1;
 
 const paymentSection = document.querySelector(".payment")
 const paymentForm = document.querySelector("#payment-form")
+const starsDiv = document.querySelector(".stars")
+const thanksSection = document.querySelector(".thanks")
 
 document.addEventListener("click", function(e) {
     if (e.target.dataset.id) {
         addItemToYourOrder(e.target.dataset.id)
     } else if (e.target.dataset.removeId) {
         deleteItemFromYourOrder(e.target.dataset.removeId)
+    } else if (e.target.id === "feedback-btn") {
+        thanksSection.classList.toggle("hidden")
+        document.querySelector(".feedback").classList.toggle("hidden")
+        setTimeout(() => {
+            thanksSection.classList.toggle("hidden")
+            document.body.classList.remove("disable-background")
+        }, 3000)
     } else if (e.target.id === "complete-order-btn") {
+        document.body.classList.add("disable-background")
         paymentSection.classList.toggle("hidden")
+    } else if (e.target.dataset.star) {
+        starsDiv.innerHTML = renderStars(Number(e.target.dataset.star))
     }
 })
 
@@ -24,6 +36,7 @@ paymentForm.addEventListener('submit', function(e) {
     paymentForm.reset()
     resetOrder()
 
+    document.body.classList.remove("disable-background")
     renderSuccess(paymentFormData.get("name"))
 })
 
@@ -47,11 +60,46 @@ function resetOrder() {
     renderOrder()
 }
 
+function renderStars(number) {
+    let feedBackHTML = ''
+    for (let i = 0; i < number + 1; i++) {
+        feedBackHTML += `
+            <i class="fa-solid fa-star selected" data-star="${i}"></i>
+        `
+    }
+
+    for (let i = number + 1; i < 5; i++) {
+        feedBackHTML += `
+            <i class="fa-solid fa-star" data-star="${i}"></i>
+        `
+    }
+
+    return feedBackHTML
+}
+
+function renderFeedback() {
+    document.body.classList.add("disable-background")
+    document.querySelector(".feedback").classList.toggle("hidden")
+
+    let feedBackHTML = ''
+    for (let i = 0; i < 5; i++) {
+        feedBackHTML += `
+            <i class="fa-solid fa-star" data-star="${i}"></i>
+        `
+    }
+
+    starsDiv.innerHTML = feedBackHTML
+}
+
 function renderSuccess(name) {
-    document.querySelector(".success-section").innerHTML = `
-        <p class="success hidden">Thanks, ${name}! Your order is on its way!</p>
+    const successSection = document.querySelector(".success-section")
+    successSection.innerHTML = `
+        <p class="success">Thanks, ${name}! Your order is on its way!</p>
     `
-    document.querySelector(".success").classList.remove("hidden")
+    successSection.classList.remove("hidden")
+
+    setTimeout(() => successSection.classList.add("hidden"), 1500)
+    setTimeout(renderFeedback, 1500)
 }
 
 function totalBill(ordersList) {
@@ -60,10 +108,10 @@ function totalBill(ordersList) {
     }, 0)
 
     if (ordersList.length >= 2) {
-        return `${amount - (amount * discount)} (With <span class="discount-text">10% Meal-Deal Discount</span>)`
+        return `(Applied <span class="discount-text">10% Meal-Deal Discount</span>) $${amount - (amount * discount)}`
     }
 
-    return amount
+    return `$${amount}`
 }
 
 function renderOrder() {
@@ -89,7 +137,7 @@ function renderOrder() {
             </div>
             <div class="total-price">
                 <p class="item-name order-item-name">Total price:</p>
-                <p class="item-price order-item-price">$
+                <p class="item-price order-item-price">
                     ${totalBill(ordersList)}
                 </p>
             </div>
