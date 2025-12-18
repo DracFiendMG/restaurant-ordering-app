@@ -8,8 +8,10 @@ const starsDiv = document.querySelector(".stars")
 const thanksSection = document.querySelector(".thanks")
 
 document.addEventListener("click", function(e) {
-    if (e.target.dataset.id) {
-        addItemToYourOrder(e.target.dataset.id)
+    if (e.target.dataset.add) {
+        addItemToYourOrder(e.target.dataset.add)
+    } else if (e.target.dataset.subtract) {
+        subtractItemFromYourOrder(e.target.dataset.subtract)
     } else if (e.target.dataset.removeId) {
         deleteItemFromYourOrder(e.target.dataset.removeId)
     } else if (e.target.id === "feedback-btn") {
@@ -42,20 +44,42 @@ paymentForm.addEventListener('submit', function(e) {
 
 function addItemToYourOrder(itemId) {
     const orderObj = menuArray.filter((item) => item.id == itemId)[0]
+    orderObj.orderCount++
     orderObj.itemSelected = true
 
+    document.querySelector(`#add-${itemId}`).textContent = `+${orderObj.orderCount}`
+    document.querySelector(`#subtract-${itemId}`).disabled = false
+    renderOrder()
+}
+
+function subtractItemFromYourOrder(itemId) {
+    const orderObj = menuArray.filter((item) => item.id == itemId)[0]
+    orderObj.orderCount--
+    if (orderObj.orderCount === 0) {
+        orderObj.itemSelected = false
+        document.querySelector(`#subtract-${itemId}`).disabled = true
+    }
+
+    document.querySelector(`#add-${itemId}`).textContent = 
+        orderObj.orderCount > 0 
+        ? `+${orderObj.orderCount}` 
+        : '+'
     renderOrder()
 }
 
 function deleteItemFromYourOrder(itemId) {
     const orderObj = menuArray.filter((item) => item.id == itemId)[0]
     orderObj.itemSelected = false
+    orderObj.orderCount = 0
 
     renderOrder()
 }
 
 function resetOrder() {
-    menuArray.forEach((item) => item.itemSelected = false)
+    menuArray.forEach((item) => {
+        item.itemSelected = false
+        item.orderCount = 0
+    })
 
     renderOrder()
 }
@@ -104,7 +128,7 @@ function renderSuccess(name) {
 
 function totalBill(ordersList) {
     let amount = ordersList.reduce((total, item) => {
-        return total + item.price
+        return total + item.price * item.orderCount
     }, 0)
 
     if (ordersList.length >= 2) {
@@ -126,7 +150,7 @@ function renderOrder() {
                     <p class="item-name order-item-name">${item.name}</p>
                     <button class="remove-btn" data-remove-id="${item.id}">remove</button>
                 </div>
-                <p class="item-price order-item-price">$${item.price}</p>
+                <p class="item-price order-item-price">${item.orderCount} x $${item.price}</p>
             </div>
         `).join('')
 
@@ -160,7 +184,8 @@ function renderMenu() {
                         <p class="item-price">$${item.price}</p>
                     </div>
                 </div>
-                <button class="add-btn inter-font" data-id="${item.id}">+</button>
+                <button id="add-${item.id}" class="add-btn inter-font" data-add="${item.id}">+</button>
+                <button id="subtract-${item.id}" class="subtract-btn inter-font" disabled data-subtract="${item.id}">-</button>
             </div>
         `
     }).join('')

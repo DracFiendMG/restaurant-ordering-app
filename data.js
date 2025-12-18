@@ -8,7 +8,8 @@ export const menuArray = [
         id: uuidv4(),
         price: 14,
         emoji: "🍕",
-        itemSelected: false
+        itemSelected: false,
+        orderCount: 0
     },
     {
         name: "Hamburger",
@@ -16,7 +17,8 @@ export const menuArray = [
         price: 12,
         emoji: "🍔",
         id: uuidv4(),
-        itemSelected: false
+        itemSelected: false,
+        orderCount: 0
     },
         {
         name: "Beer",
@@ -24,6 +26,7 @@ export const menuArray = [
         price: 12,
         emoji: "🍺",
         id: uuidv4(),
-        itemSelected: false
+        itemSelected: false,
+        orderCount: 0
     }
 ]

@@ -97,7 +97,7 @@ main {
     margin: 0;
 }
 
-.add-btn {
+.add-btn, .subtract-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,6 +112,19 @@ main {
     color: #DEDEDE;
     background: none;
     box-sizing: content-box;
+}
+
+.add-btn:active, .subtract-btn:active {
+    transform: scale(0.9);
+}
+
+.subtract-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.add-btn {
+    margin-right: 10px;
 }
 
 .order {
